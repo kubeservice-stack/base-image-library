@@ -21,7 +21,7 @@ jobs:
       - name: Pull Dependencies
         run: "docker pull buildpack-deps:buster-scm"
       - name: Build 1.19.3-buster
-        run: "DOCKER_BUILDKIT=0 docker build --tag golang:1.19.3-buster --tag golang:1.19-buster --tag golang:1-buster --tag golang:buster  1.19/buster"
+        run: "DOCKER_BUILDKIT=0 docker build --tag golang:1.19.3-buster --tag golang:1.19-buster --tag golang:1-buster --tag golang:buster  -f ./golang/1.19/buster/Dockerfile ."
       - name: History 1.19.3-buster
         run: "docker history golang:1.19.3-buster"
       - name: Test 1.19.3-buster
