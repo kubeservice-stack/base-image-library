@@ -22,7 +22,7 @@ jobs:
             name: golang-1.19.3-bullseye
             os: "ubuntu-latest"
             image: dongjiang1989/bullseye
-            file: ./golang/1.19/bullseye/Dockfile
+            file: ./golang/1.19/bullseye/Dockerfile
     steps:
       - 
         name: Checkout
