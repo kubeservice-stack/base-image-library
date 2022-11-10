@@ -71,7 +71,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ${{ matrix.file }}
-          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           push: true
           tags: ${{ matrix.image }}:${{ matrix.name }}
       - name: Test ${{ matrix.name }}
