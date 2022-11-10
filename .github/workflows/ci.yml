@@ -23,11 +23,6 @@ jobs:
             os: "ubuntu-latest"
             image: dongjiang1989/bullseye
             file: golang/1.19/bullseye/Dockfile
-            
-  test:
-    needs: generate-jobs
-    name: ${{ matrix.name }}
-    runs-on: ${{ matrix.os }}
     steps:
       - 
         name: Checkout
