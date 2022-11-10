@@ -40,9 +40,7 @@ jobs:
           file: ${{ matrix.file }}
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           push: true
-          tags: ${{ matrix.name }}
-          cache-from: type=registry,ref=${{ matrix.image }}:master
-          cache-to: type=inline
+          tags: ${{ matrix.image }}:${{ matrix.name }}
       - name: Test ${{ matrix.name }}
         run: |
           docker pull ${{ matrix.image}}:${{ matrix.name }}
