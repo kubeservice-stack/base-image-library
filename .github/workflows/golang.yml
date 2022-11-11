@@ -44,6 +44,11 @@ jobs:
             file: ./golang/1.19/bclinux/Dockerfile
             platforms: linux/amd64
           -
+            name: golang-1.19.3-bcoe21.10
+            image: dongjiang1989/bc-oe
+            file: ./golang/1.19/bclinux/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
             name: golang-1.18.8-bullseye
             image: dongjiang1989/bullseye
             file: ./golang/1.18/bullseye/Dockerfile
@@ -68,6 +73,11 @@ jobs:
             image: dongjiang1989/bclinux
             file: ./golang/1.18/bclinux/Dockerfile
             platforms: linux/amd64
+          -
+            name: golang-1.18.8-bcoe21.10
+            image: dongjiang1989/bc-oe
+            file: ./golang/1.18/bclinux/Dockerfile
+            platforms: linux/amd64,linux/arm64
     steps:
       - 
         name: Checkout

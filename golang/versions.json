@@ -129,7 +129,9 @@
       "bullseye",
       "buster",
       "alpine3.16",
-      "alpine3.15"
+      "alpine3.15",
+      "bclinux",
+      "bc-oe"
     ],
     "version": "1.18.8"
   },
@@ -263,7 +265,9 @@
       "bullseye",
       "buster",
       "alpine3.16",
-      "alpine3.15"
+      "alpine3.15",
+      "bclinux",
+      "bc-oe"
     ],
     "version": "1.19.3"
   }
