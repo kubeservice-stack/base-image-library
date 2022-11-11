@@ -1,4 +1,4 @@
-name: GitHub CI
+name: golang docker build & push
 
 on:
   pull_request:
@@ -22,34 +22,42 @@ jobs:
             name: golang-1.19.3-bullseye
             image: dongjiang1989/bullseye
             file: ./golang/1.19/bullseye/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           -
             name: golang-1.19.3-alpine3.15
             image: dongjiang1989/alpine
             file: ./golang/1.19/alpine3.15/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           -
             name: golang-1.19.3-alpine3.16
             image: dongjiang1989/alpine
             file: ./golang/1.19/alpine3.16/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v7,linux/arm64
           -
             name: golang-1.19.3-buster
             image: dongjiang1989/buster
             file: ./golang/1.19/buster/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           -
             name: golang-1.18.8-bullseye
             image: dongjiang1989/bullseye
             file: ./golang/1.18/bullseye/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           -
             name: golang-1.18.8-alpine3.15
             image: dongjiang1989/alpine
             file: ./golang/1.18/alpine3.15/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           -
             name: golang-1.18.8-alpine3.16
             image: dongjiang1989/alpine
             file: ./golang/1.18/alpine3.16/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           -
             name: golang-1.18.8-buster
             image: dongjiang1989/buster
             file: ./golang/1.18/buster/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v7,linux/arm64
     steps:
       - 
         name: Checkout
