@@ -39,6 +39,11 @@ jobs:
             file: ./golang/1.19/buster/Dockerfile
             platforms: linux/386,linux/amd64,linux/arm/v7,linux/arm64
           -
+            name: golang-1.19.3-bclinux8.2
+            image: dongjiang1989/bclinux
+            file: ./golang/1.19/bclinux/Dockerfile
+            platforms: linux/amd64
+          -
             name: golang-1.18.8-bullseye
             image: dongjiang1989/bullseye
             file: ./golang/1.18/bullseye/Dockerfile
@@ -58,6 +63,11 @@ jobs:
             image: dongjiang1989/buster
             file: ./golang/1.18/buster/Dockerfile
             platforms: linux/386,linux/amd64,linux/arm/v7,linux/arm64
+          -
+            name: golang-1.18.8-bclinux8.2
+            image: dongjiang1989/bclinux
+            file: ./golang/1.18/bclinux/Dockerfile
+            platforms: linux/amd64
     steps:
       - 
         name: Checkout
