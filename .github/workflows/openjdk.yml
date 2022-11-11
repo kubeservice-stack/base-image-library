@@ -1,0 +1,204 @@
+name: openjdk docker build & push
+
+on:
+  pull_request:
+  push:
+  schedule:
+    - cron: 0 0 * * 0
+
+defaults:
+  run:
+    shell: 'bash -Eeuo pipefail -x {0}'
+
+jobs:
+  generate-jobs:
+    name: openjdk-build
+    runs-on: ubuntu-latest
+    strategy: 
+      fail-fast: false
+      matrix:
+        include:
+          -
+            name: openjdk-20-ea-23-jdk-oraclelinux8
+            image: dongjiang1989/oraclelinux8
+            file: ./openjdk/20/jdk/oraclelinux8/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: openjdk-20-ea-23-jdk-oraclelinux7
+            image: dongjiang1989/oraclelinux7
+            file: ./openjdk/20/jdk/oraclelinux7/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: openjdk-20-ea-23-jdk-bullseye
+            image: dongjiang1989/bullseye
+            file: ./openjdk/20/jdk/bullseye/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x,linux/mips64le
+          -
+            name: openjdk-20-ea-23-jdk-slim-bullseye
+            image: dongjiang1989/bullseye-slim
+            file: ./openjdk/20/jdk/slim-bullseye/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x,linux/mips64le
+          -
+            name: openjdk-20-ea-23-jdk-buster
+            image: dongjiang1989/buster
+            file: ./openjdk/20/jdk/buster/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v7,linux/arm64
+          -
+            name: openjdk-20-ea-23-jdk-slim-buster
+            image: dongjiang1989/buster-slim
+            file: ./openjdk/20/jdk/slim-buster/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v7,linux/arm64
+
+          -
+            name: openjdk-18.0.2.1-jdk-oraclelinux8
+            image: dongjiang1989/oraclelinux8
+            file: ./openjdk/18/jdk/oraclelinux8/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: openjdk-18.0.2.1-jdk-oraclelinux7
+            image: dongjiang1989/oraclelinux7
+            file: ./openjdk/18/jdk/oraclelinux7/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: openjdk-18.0.2.1-jdk-bullseye
+            image: dongjiang1989/bullseye
+            file: ./openjdk/18/jdk/bullseye/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x,linux/mips64le
+          -
+            name: openjdk-18.0.2.1-jdk-slim-bullseye
+            image: dongjiang1989/bullseye-slim
+            file: ./openjdk/18/jdk/slim-bullseye/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x,linux/mips64le
+          -
+            name: openjdk-18.0.2.1-jdk-buster
+            image: dongjiang1989/buster
+            file: ./openjdk/18/jdk/buster/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v7,linux/arm64
+          -
+            name: openjdk-18.0.2.1-jdk-slim-buster
+            image: dongjiang1989/buster-slim
+            file: ./openjdk/18/jdk/slim-buster/Dockerfile
+            platforms: linux/386,linux/amd64,linux/arm/v7,linux/arm64
+
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2 
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{ matrix.file }}
+          platforms: ${{ matrix.platforms }}
+          push: true
+          tags: ${{ matrix.image }}:${{ matrix.name }}
+      - name: Test ${{ matrix.name }}
+        run: |
+          docker pull ${{ matrix.image}}:${{ matrix.name }}
+          docker image inspect ${{ matrix.image}}:${{ matrix.name }}
+          
+  window2022-jobs:
+    name: openjdk-build-windows-2022
+    runs-on: windows-2022
+    strategy: 
+      fail-fast: false
+      matrix:
+        include:
+          -
+            name: openjdk-20-ea-23-jdk-windowsservercore-ltsc2022
+            image: dongjiang1989/windowsservercore
+            file: ./openjdk/20/jdk/windows/windowsservercore-ltsc2022/Dockerfile
+          -
+            name: openjdk-18.0.2.1-jdk-windowsservercore-ltsc2022
+            image: dongjiang1989/windowsservercore
+            file: ./openjdk/18/jdk/windows/windowsservercore-ltsc2022/Dockerfile
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2 
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{ matrix.file }}
+          push: true
+          tags: ${{ matrix.image }}:${{ matrix.name }}
+      - name: Test ${{ matrix.name }}
+        run: |
+          docker pull ${{ matrix.image}}:${{ matrix.name }}
+          docker image inspect ${{ matrix.image}}:${{ matrix.name }}
+  
+  window2019-jobs:
+    name: openjdk-build-windows-2019
+    runs-on: windows-2019
+    strategy: 
+      fail-fast: false
+      matrix:
+        include:
+          -
+            name: openjdk-20-ea-23-windowsservercore-1809
+            image: dongjiang1989/windowsservercore
+            file: ./openjdk/20/jdk/windows/windowsservercore-1809/Dockerfile
+          -
+            name: openjdk-20-ea-23-jdk-nanoserver-1809
+            image: dongjiang1989/nanoserver
+            file: ./openjdk/20/jdk/windows/nanoserver-1809/Dockerfile
+          -
+            name: openjdk-18.0.2.1-windowsservercore-1809
+            image: dongjiang1989/windowsservercore
+            file: ./openjdk/18/jdk/windows/windowsservercore-1809/Dockerfile
+          -
+            name: openjdk-18.0.2.1-jdk-nanoserver-1809
+            image: dongjiang1989/nanoserver
+            file: ./openjdk/20/jdk/windows/nanoserver-1809/Dockerfile
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2 
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{ matrix.file }}
+          push: true
+          tags: ${{ matrix.image }}:${{ matrix.name }}
+      - name: Test ${{ matrix.name }}
+        run: |
+          docker pull ${{ matrix.image}}:${{ matrix.name }}
+          docker image inspect ${{ matrix.image}}:${{ matrix.name }}
