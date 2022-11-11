@@ -12,7 +12,7 @@ defaults:
 
 jobs:
   generate-jobs:
-    name: golang-buile
+    name: golang-build
     runs-on: ubuntu-latest
     strategy: 
       fail-fast: false
