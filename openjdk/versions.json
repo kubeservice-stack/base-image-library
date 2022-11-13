@@ -56,5 +56,22 @@
       "euler21.10"
     ],
     "version": "20-ea+22"
+  },
+  "8": {
+    "jdk": {
+      "arches": {
+        "amd64": {
+          "url": "https://package-1257912602.cos.ap-beijing.myqcloud.com/jdk-8u351-linux-x64.tar.gz"
+        },
+        "arm64v8": {
+          "url": "https://package-1257912602.cos.ap-beijing.myqcloud.com/jdk-8u351-linux-aarch64.tar.gz"
+        }
+      }
+    },
+    "variants": [
+      "bclinux",
+      "euler21.10"
+    ],
+    "version": "1.8.0_351"
   }
 }
