@@ -48,6 +48,16 @@ jobs:
             image: dongjiang1989/buster-slim
             file: ./openjdk/20/jdk/slim-buster/Dockerfile
             platforms: linux/amd64,linux/arm64
+          -
+            name: openjdk-20-ea-23-jdk-bclinux8.2
+            image: dongjiang1989/bclinux
+            file: ./openjdk/18/jdk/bclinux/Dockerfile
+            platforms: linux/amd64
+          -
+            name: openjdk-20-ea-23-jdk-bcoe21.10
+            image: dongjiang1989/bc-oe
+            file: ./openjdk/18/jdk/euler21.10/Dockerfile
+            platforms: linux/amd64,linux/arm64
 
           -
             name: openjdk-18.0.2.1-jdk-oraclelinux8
@@ -79,7 +89,16 @@ jobs:
             image: dongjiang1989/buster-slim
             file: ./openjdk/18/jdk/slim-buster/Dockerfile
             platforms: linux/amd64,linux/arm64
-
+          -
+            name: openjdk-18.0.2.1-jdk-bclinux8.2
+            image: dongjiang1989/bclinux
+            file: ./openjdk/18/jdk/bclinux/Dockerfile
+            platforms: linux/amd64
+          -
+            name: openjdk-18.0.2.1-jdk-bcoe21.10
+            image: dongjiang1989/bc-oe
+            file: ./openjdk/18/jdk/euler21.10/Dockerfile
+            platforms: linux/amd64,linux/arm64
     steps:
       - 
         name: Checkout
