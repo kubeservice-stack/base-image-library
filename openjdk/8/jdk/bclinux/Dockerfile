@@ -8,7 +8,7 @@ FROM dongjiang1989/bclinux:8.2.2107
 
 RUN set -eux; \
 # https://unix.stackexchange.com/a/477127/153467
-	yum install -y --setopt=skip_missing_names_on_install=False \
+	yum install -y --setopt=skip_missing_names_on_install=False --nogpgcheck \
 		gzip \
 		tar \
 		binutils \
