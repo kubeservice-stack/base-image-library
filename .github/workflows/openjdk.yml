@@ -99,6 +99,17 @@ jobs:
             image: dongjiang1989/bc-oe
             file: ./openjdk/18/jdk/euler21.10/Dockerfile
             platforms: linux/amd64,linux/arm64
+
+          -
+            name: openjdk-1.8.0_351-jdk-bclinux8.2
+            image: dongjiang1989/bclinux
+            file: ./openjdk/8/jdk/bclinux/Dockerfile
+            platforms: linux/amd64
+          -
+            name: openjdk-1.8.0_351-jdk-bcoe21.10
+            image: dongjiang1989/bc-oe
+            file: ./openjdk/8/jdk/euler21.10/Dockerfile
+            platforms: linux/amd64,linux/arm64
     steps:
       - 
         name: Checkout
