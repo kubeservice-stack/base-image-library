@@ -56,8 +56,6 @@ RUN set -eux; \
 		alternatives --install "/usr/bin/$base" "$base" "$bin" 20000; \
 	done; \
 	\
-	java -Xshare:dump; \
-	\
 	javac -version; \
 	java -version
 
