@@ -11,7 +11,10 @@ RUN apk add --no-cache ca-certificates
 # set up nsswitch.conf for Go's "netgo" implementation
 # - https://github.com/golang/go/blob/go1.9.1/src/net/conf.go#L194-L275
 # - docker run --rm debian grep '^hosts:' /etc/nsswitch.conf
-RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
+RUN  set -eux; \
+     if [ ! -e /etc/nsswitch.conf ]; then \
+        echo 'hosts: files dns' > /etc/nsswitch.conf; \
+     fi;
 
 ENV PATH /usr/local/go/bin:$PATH
 
