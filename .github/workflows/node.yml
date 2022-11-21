@@ -1,4 +1,4 @@
-name: ruby docker build & push
+name: node docker build & push
 
 on:
   pull_request:
@@ -12,134 +12,134 @@ defaults:
 
 jobs:
   generate-jobs:
-    name: ruby-build
+    name: node-build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         include:
           -
-            name: ruby-2.7.6-alpine3.15
+            name: node-14-alpine3.15
             image: dongjiang1989/alpine
-            file: ./ruby/2.7/alpine3.15/Dockerfile
+            file: ./node/14/alpine3.15/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-2.7.6-alpine3.16
+            name: node-14-alpine3.16
             image: dongjiang1989/alpine
-            file: ./ruby/2.7/alpine3.16/Dockerfile
+            file: ./node/14/alpine3.16/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-2.7.6-bullseye
+            name: node-14-bullseye
             image: dongjiang1989/bullseye
-            file: ./ruby/2.7/bullseye/Dockerfile
+            file: ./node/14/bullseye/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-2.7.6-buster
+            name: node-14-buster
             image: dongjiang1989/buster
-            file: ./ruby/2.7/buster/Dockerfile
+            file: ./node/14/buster/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-2.7.6-slim-bullseye
+            name: node-14-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./ruby/2.7/slim-bullseye/Dockerfile
+            file: ./node/14/slim-bullseye/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-2.7.6-slim-buster
+            name: node-14-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./ruby/2.7/slim-buster/Dockerfile
+            file: ./node/14/slim-buster/Dockerfile
             platforms: linux/amd64,linux/arm64
             
           -
-            name: ruby-3.0.4-alpine3.15
+            name: node-16-alpine3.15
             image: dongjiang1989/alpine
-            file: ./ruby/3.0/alpine3.15/Dockerfile
+            file: ./node/16/alpine3.15/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.0.4-alpine3.16
+            name: node-16-alpine3.16
             image: dongjiang1989/alpine
-            file: ./ruby/3.0/alpine3.16/Dockerfile
+            file: ./node/16/alpine3.16/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.0.4-bullseye
+            name: node-16-bullseye
             image: dongjiang1989/bullseye
-            file: ./ruby/3.0/bullseye/Dockerfile
+            file: ./node/16/bullseye/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.0.4-buster
+            name: node-16-buster
             image: dongjiang1989/buster
-            file: ./ruby/3.0/buster/Dockerfile
+            file: ./node/16/buster/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.0.4-slim-bullseye
+            name: node-16-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./ruby/3.0/slim-bullseye/Dockerfile
+            file: ./node/16/slim-bullseye/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.0.4-slim-buster
+            name: node-16-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./ruby/3.0/slim-buster/Dockerfile
+            file: ./node/16/slim-buster/Dockerfile
             platforms: linux/amd64,linux/arm64
 
           -
-            name: ruby-3.1.2-alpine3.15
+            name: node-18-alpine3.15
             image: dongjiang1989/alpine
-            file: ./ruby/3.1/alpine3.15/Dockerfile
+            file: ./node/18/alpine3.15/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.1.2-alpine3.16
+            name: node-18-alpine3.16
             image: dongjiang1989/alpine
-            file: ./ruby/3.1/alpine3.16/Dockerfile
+            file: ./node/18/alpine3.16/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.1.2-bullseye
+            name: node-18-bullseye
             image: dongjiang1989/bullseye
-            file: ./ruby/3.1/bullseye/Dockerfile
+            file: ./node/18/bullseye/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.1.2-buster
+            name: node-18-buster
             image: dongjiang1989/buster
-            file: ./ruby/3.1/buster/Dockerfile
+            file: ./node/18/buster/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.1.2-slim-bullseye
+            name: node-18-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./ruby/3.1/slim-bullseye/Dockerfile
+            file: ./node/18/slim-bullseye/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.1.2-slim-buster
+            name: node-18-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./ruby/3.1/slim-buster/Dockerfile
+            file: ./node/18/slim-buster/Dockerfile
             platforms: linux/amd64,linux/arm64
 
           -
-            name: ruby-3.2.0-preview3-alpine3.15
+            name:node-19-alpine3.15
             image: dongjiang1989/alpine
-            file: ./ruby/3.2-rc/alpine3.15/Dockerfile
+            file: ./node/19/alpine3.15/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.3.2.0-preview3-alpine3.16
+            name: node-19-alpine3.16
             image: dongjiang1989/alpine
-            file: ./ruby/3.2-rc/alpine3.16/Dockerfile
+            file: ./node/19/alpine3.16/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.3.2.0-preview3-bullseye
+            name: node-19-bullseye
             image: dongjiang1989/bullseye
-            file: ./ruby/3.2-rc/bullseye/Dockerfile
+            file: ./node/19/bullseye/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.3.2.0-preview3-buster
+            name: node-19-buster
             image: dongjiang1989/buster
-            file: ./ruby/3.2-rc/buster/Dockerfile
+            file: ./node/19/buster/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.3.2.0-preview3-slim-bullseye
+            name: node-19-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./ruby/3.2-rc/slim-bullseye/Dockerfile
+            file: ./node/19/slim-bullseye/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
-            name: ruby-3.3.2.0-preview3-slim-buster
+            name: node-19-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./ruby/3.2-rc/slim-buster/Dockerfile
+            file: ./node/19/slim-buster/Dockerfile
             platforms: linux/amd64,linux/arm64
 
     steps:
