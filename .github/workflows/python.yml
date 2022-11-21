@@ -1,0 +1,233 @@
+name: python docker build & push
+
+on:
+  pull_request:
+  push:
+  schedule:
+    - cron: 0 0 * * 0
+
+defaults:
+  run:
+    shell: 'bash -Eeuo pipefail -x {0}'
+
+jobs:
+  generate-jobs:
+    name: python-build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          -
+            name: python-3.7.15-alpine3.15
+            image: dongjiang1989/alpine
+            file: ./python/3.7/alpine3.15/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.7.15-alpine3.16
+            image: dongjiang1989/alpine
+            file: ./python/3.7/alpine3.16/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.7.15-bullseye
+            image: dongjiang1989/bullseye
+            file: ./python/3.7/bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.7.15-buster
+            image: dongjiang1989/buster
+            file: ./python/3.7/buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.7.15-slim-bullseye
+            image: dongjiang1989/bullseye-slim
+            file: ./python/3.7/slim-bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.7.15-slim-buster
+            image: dongjiang1989/buster-slim
+            file: ./python/3.7/slim-buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+            
+          -
+            name: python-3.8.15-alpine3.15
+            image: dongjiang1989/alpine
+            file: ./python/3.8/alpine3.15/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.8.15-alpine3.16
+            image: dongjiang1989/alpine
+            file: ./python/3.8/alpine3.16/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.8.15-bullseye
+            image: dongjiang1989/bullseye
+            file: ./python/3.8/bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.8.15-buster
+            image: dongjiang1989/buster
+            file: ./python/3.8/buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.8.15-slim-bullseye
+            image: dongjiang1989/bullseye-slim
+            file: ./python/3.8/slim-bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.8.15-slim-buster
+            image: dongjiang1989/buster-slim
+            file: ./python/3.8/slim-buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+
+          -
+            name: python-3.9.15-alpine3.15
+            image: dongjiang1989/alpine
+            file: ./python/3.9/alpine3.15/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.9.15-alpine3.16
+            image: dongjiang1989/alpine
+            file: ./python/3.9/alpine3.16/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.9.15-bullseye
+            image: dongjiang1989/bullseye
+            file: ./python/3.9/bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.9.15-buster
+            image: dongjiang1989/buster
+            file: ./python/3.9/buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.9.15-slim-bullseye
+            image: dongjiang1989/bullseye-slim
+            file: ./python/3.9/slim-bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.9.15-slim-buster
+            image: dongjiang1989/buster-slim
+            file: ./python/3.9/slim-buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+
+          -
+            name: python-3.10.8-alpine3.15
+            image: dongjiang1989/alpine
+            file: ./python/3.10/alpine3.15/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.10.8-alpine3.16
+            image: dongjiang1989/alpine
+            file: ./python/3.10/alpine3.16/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.10.8-bullseye
+            image: dongjiang1989/bullseye
+            file: ./python/3.10/bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.10.8-buster
+            image: dongjiang1989/buster
+            file: ./python/3.10/buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.10.8-slim-bullseye
+            image: dongjiang1989/bullseye-slim
+            file: ./python/3.10/slim-bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.10.8-slim-buster
+            image: dongjiang1989/buster-slim
+            file: ./python/3.10/slim-buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+
+          -
+            name: python-3.11.0-alpine3.15
+            image: dongjiang1989/alpine
+            file: ./python/3.11/alpine3.15/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.11.0-alpine3.16
+            image: dongjiang1989/alpine
+            file: ./python/3.11/alpine3.16/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.11.0-bullseye
+            image: dongjiang1989/bullseye
+            file: ./python/3.11/bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.11.0-buster
+            image: dongjiang1989/buster
+            file: ./python/3.11/buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.11.0-slim-bullseye
+            image: dongjiang1989/bullseye-slim
+            file: ./python/3.11/slim-bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.11.0-slim-buster
+            image: dongjiang1989/buster-slim
+            file: ./python/3.11/slim-buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+            
+          -
+            name: python-3.12.0a2-alpine3.15
+            image: dongjiang1989/alpine
+            file: ./python/3.12-rc/alpine3.15/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.12.0a2-alpine3.16
+            image: dongjiang1989/alpine
+            file: ./python/3.12-rc/alpine3.16/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.12.0a2-bullseye
+            image: dongjiang1989/bullseye
+            file: ./python/3.12-rc/bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.12.0a2-buster
+            image: dongjiang1989/buster
+            file: ./python/3.12-rc/buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.12.0a2-slim-bullseye
+            image: dongjiang1989/bullseye-slim
+            file: ./python/3.12-rc/slim-bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: python-3.12.0a2-slim-buster
+            image: dongjiang1989/buster-slim
+            file: ./python/3.12-rc/slim-buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{ matrix.file }}
+          platforms: ${{ matrix.platforms }}
+          push: true
+          tags: ${{ matrix.image }}:${{ matrix.name }}
+      - name: Test ${{ matrix.name }}
+        run: |
+          docker pull ${{ matrix.image}}:${{ matrix.name }}
+          docker image inspect ${{ matrix.image}}:${{ matrix.name }}
