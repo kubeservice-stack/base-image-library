@@ -1,0 +1,69 @@
+name: rust docker build & push
+
+on:
+  pull_request:
+  push:
+  schedule:
+    - cron: 0 0 * * 0
+
+defaults:
+  run:
+    shell: 'bash -Eeuo pipefail -x {0}'
+
+jobs:
+  generate-jobs:
+    name: rust-build
+    runs-on: ubuntu-latest
+    strategy: 
+      fail-fast: false
+      matrix:
+        include:
+          -
+            name: rust-1.65.0-alpine3.15
+            image: dongjiang1989/alpine
+            file: ./rust/1.65.0/alpine3.15/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: rust-1.65.0-alpine3.16
+            image: dongjiang1989/alpine
+            file: ./rust/1.65.0/alpine3.16/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: rust-1.65.0-bullseye
+            image: dongjiang1989/bullseye
+            file: ./rust/1.65.0/bullseye/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: rust-1.65.0-buster
+            image: dongjiang1989/buster
+            file: ./rust/1.65.0/buster/Dockerfile
+            platforms: linux/amd64,linux/arm64
+
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2 
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{ matrix.file }}
+          platforms: ${{ matrix.platforms }}
+          push: true
+          tags: ${{ matrix.image }}:${{ matrix.name }}
+      - name: Test ${{ matrix.name }}
+        run: |
+          docker pull ${{ matrix.image}}:${{ matrix.name }}
+          docker image inspect ${{ matrix.image}}:${{ matrix.name }}
