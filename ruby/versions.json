@@ -1,0 +1,50 @@
+{
+  "2.7": {
+    "sha256": "54dcd3044726c4ab75a9d4604720501442b229a3aed6a55fe909567da8807f24",
+    "variants": [
+      "bullseye",
+      "slim-bullseye",
+      "buster",
+      "slim-buster",
+      "alpine3.16",
+      "alpine3.15"
+    ],
+    "version": "2.7.6"
+  },
+  "3.0": {
+    "sha256": "8e22fc7304520435522253210ed0aa9a50545f8f13c959fe01a05aea06bef2f0",
+    "variants": [
+      "bullseye",
+      "slim-bullseye",
+      "buster",
+      "slim-buster",
+      "alpine3.16",
+      "alpine3.15"
+    ],
+    "version": "3.0.4"
+  },
+  "3.1": {
+    "sha256": "ca10d017f8a1b6d247556622c841fc56b90c03b1803f87198da1e4fd3ec3bf2a",
+    "variants": [
+      "bullseye",
+      "slim-bullseye",
+      "buster",
+      "slim-buster",
+      "alpine3.16",
+      "alpine3.15"
+    ],
+    "version": "3.1.2"
+  },
+  "3.2-rc": {
+    "sha256": "d3f5619de544240d92a5d03aa289e71bd1103379622c523a0e80ed029a74b3bb",
+    "variants": [
+      "bullseye",
+      "slim-bullseye",
+      "buster",
+      "slim-buster",
+      "alpine3.16",
+      "alpine3.15"
+    ],
+    "version": "3.2.0-preview3"
+  }
+}
