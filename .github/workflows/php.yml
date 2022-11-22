@@ -1,0 +1,310 @@
+name: php docker build & push
+
+on:
+  pull_request:
+  push:
+  schedule:
+    - cron: 0 0 * * 0
+
+defaults:
+  run:
+    shell: 'bash -Eeuo pipefail -x {0}'
+
+jobs:
+  generate-jobs:
+    name: php-build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          -
+            name: php-7.4-cli-alpine3.15
+            image: dongjiang1989/alpine
+            context: ./php/7.4/alpine3.15/cli
+            file: ./php/7.4/alpine3.15/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-7.4-fpm-alpine3.15
+            image: dongjiang1989/alpine
+            context: ./php/7.4/alpine3.15/fpm
+            file: ./php/7.4/alpine3.15/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-7.4-zts-alpine3.15
+            image: dongjiang1989/alpine
+            context: ./php/7.4/alpine3.15/zts
+            file: ./php/7.4/alpine3.15/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-7.4-cli-alpine3.16
+            image: dongjiang1989/alpine
+            context: ./php/7.4/alpine3.16/cli
+            file: ./php/7.4/alpine3.16/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-7.4-fpm-alpine3.16
+            image: dongjiang1989/alpine
+            context: ./php/7.4/alpine3.16/fpm
+            file: ./php/7.4/alpine3.16/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-7.4-zts-alpine3.16
+            image: dongjiang1989/alpine
+            context: ./php/7.4/alpine3.16/zts
+            file: ./php/7.4/alpine3.16/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64
+
+          -
+            name: php-7.4-cli-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/7.4/bullseye/cli
+            file: ./php/7.4/bullseye/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-7.4-fpm-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/7.4/bullseye/fpm
+            file: ./php/7.4/bullseye/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-7.4-zts-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/7.4/bullseye/zts
+            file: ./php/7.4/bullseye/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64  
+          -
+            name: php-7.4-apache-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/7.4/bullseye/apache
+            file: ./php/7.4/bullseye/apache/Dockerfile
+            platforms: linux/amd64,linux/arm64 
+
+          -
+            name: php-7.4-cli-buster
+            image: dongjiang1989/buster
+            context: ./php/7.4/buster/cli
+            file: ./php/7.4/buster/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-7.4-fpm-buster
+            image: dongjiang1989/buster
+            context: ./php/7.4/buster/fpm
+            file: ./php/7.4/buster/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-7.4-zts-buster
+            image: dongjiang1989/buster
+            context: ./php/7.4/buster/zts
+            file: ./php/7.4/buster/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64  
+          -
+            name: php-7.4-apache-buster
+            image: dongjiang1989/buster
+            context: ./php/7.4/buster/apache
+            file: ./php/7.4/buster/apache/Dockerfile
+            platforms: linux/amd64,linux/arm64 
+
+          -
+            name: php-8.0-cli-alpine3.15
+            image: dongjiang1989/alpine
+            context: ./php/8.0/alpine3.15/cli
+            file: ./php/8.0/alpine3.15/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.0-fpm-alpine3.15
+            image: dongjiang1989/alpine
+            context: ./php/8.0/alpine3.15/fpm
+            file: ./php/8.0/alpine3.15/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.0-zts-alpine3.15
+            image: dongjiang1989/alpine
+            context: ./php/8.0/alpine3.15/zts
+            file: ./php/8.0/alpine3.15/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.0-cli-alpine3.16
+            image: dongjiang1989/alpine
+            context: ./php/8.0/alpine3.16/cli
+            file: ./php/8.0/alpine3.16/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.0-fpm-alpine3.16
+            image: dongjiang1989/alpine
+            context: ./php/8.0/alpine3.16/fpm
+            file: ./php/8.0/alpine3.16/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.0-zts-alpine3.16
+            image: dongjiang1989/alpine
+            context: ./php/8.0/alpine3.16/zts
+            file: ./php/8.0/alpine3.16/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64
+
+          -
+            name: php-8.0-cli-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/8.0/bullseye/cli
+            file: ./php/8.0/bullseye/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.0-fpm-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/8.0/bullseye/fpm
+            file: ./php/8.0/bullseye/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.0-zts-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/8.0/bullseye/zts
+            file: ./php/8.0/bullseye/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64  
+          -
+            name: php-8.0-apache-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/8.0/bullseye/apache
+            file: ./php/8.0/bullseye/apache/Dockerfile
+            platforms: linux/amd64,linux/arm64 
+
+          -
+            name: php-8.0-cli-buster
+            image: dongjiang1989/buster
+            context: ./php/8.0/buster/cli
+            file: ./php/8.0/buster/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.0-fpm-buster
+            image: dongjiang1989/buster
+            context: ./php/8.0/buster/fpm
+            file: ./php/8.0/buster/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.0-zts-buster
+            image: dongjiang1989/buster
+            context: ./php/8.0/buster/zts
+            file: ./php/8.0/buster/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64  
+          -
+            name: php-8.0-apache-buster
+            image: dongjiang1989/buster
+            context: ./php/8.0/buster/apache
+            file: ./php/8.0/buster/apache/Dockerfile
+            platforms: linux/amd64,linux/arm64 
+
+          -
+            name: php-8.1-cli-alpine3.15
+            image: dongjiang1989/alpine
+            context: ./php/8.1/alpine3.15/cli
+            file: ./php/8.1/alpine3.15/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.1-fpm-alpine3.15
+            image: dongjiang1989/alpine
+            context: ./php/8.1/alpine3.15/fpm
+            file: ./php/8.1/alpine3.15/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.1-zts-alpine3.15
+            image: dongjiang1989/alpine
+            context: ./php/8.1/alpine3.15/zts
+            file: ./php/8.1/alpine3.15/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.1-cli-alpine3.16
+            image: dongjiang1989/alpine
+            context: ./php/8.1/alpine3.16/cli
+            file: ./php/8.1/alpine3.16/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.1-fpm-alpine3.16
+            image: dongjiang1989/alpine
+            context: ./php/8.1/alpine3.16/fpm
+            file: ./php/8.1/alpine3.16/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.1-zts-alpine3.16
+            image: dongjiang1989/alpine
+            context: ./php/8.1/alpine3.16/zts
+            file: ./php/8.1/alpine3.16/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64
+
+          -
+            name: php-8.1-cli-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/8.1/bullseye/cli
+            file: ./php/8.1/bullseye/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.1-fpm-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/8.1/bullseye/fpm
+            file: ./php/8.1/bullseye/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.1-zts-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/8.1/bullseye/zts
+            file: ./php/8.1/bullseye/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64  
+          -
+            name: php-8.1-apache-bullseye
+            image: dongjiang1989/bullseye
+            context: ./php/8.1/bullseye/apache
+            file: ./php/8.1/bullseye/apache/Dockerfile
+            platforms: linux/amd64,linux/arm64 
+
+          -
+            name: php-8.1-cli-buster
+            image: dongjiang1989/buster
+            context: ./php/8.1/buster/cli
+            file: ./php/8.1/buster/cli/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.1-fpm-buster
+            image: dongjiang1989/buster
+            context: ./php/8.1/buster/fpm
+            file: ./php/8.1/buster/fpm/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: php-8.1-zts-buster
+            image: dongjiang1989/buster
+            context: ./php/8.1/buster/zts
+            file: ./php/8.1/buster/zts/Dockerfile
+            platforms: linux/amd64,linux/arm64  
+          -
+            name: php-8.1-apache-buster
+            image: dongjiang1989/buster
+            context: ./php/8.1/buster/apache
+            file: ./php/8.1/buster/apache/Dockerfile
+            platforms: linux/amd64,linux/arm64 
+
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{ matrix.file }}
+          context: ${{ matrix.context }}
+          platforms: ${{ matrix.platforms }}
+          push: true
+          tags: ${{ matrix.image }}:${{ matrix.name }}
+      - name: Test ${{ matrix.name }}
+        run: |
+          docker pull ${{ matrix.image}}:${{ matrix.name }}
+          docker image inspect ${{ matrix.image}}:${{ matrix.name }}
