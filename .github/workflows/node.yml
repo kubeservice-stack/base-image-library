@@ -41,12 +41,12 @@ jobs:
           -
             name: node-14-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./node/14/slim-bullseye/Dockerfile
+            file: ./node/14/bullseye-slim/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
             name: node-14-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./node/14/slim-buster/Dockerfile
+            file: ./node/14/buster-slim/Dockerfile
             platforms: linux/amd64,linux/arm64
             
           -
@@ -72,12 +72,12 @@ jobs:
           -
             name: node-16-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./node/16/slim-bullseye/Dockerfile
+            file: ./node/16/bullseye-slim/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
             name: node-16-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./node/16/slim-buster/Dockerfile
+            file: ./node/16/buster-slim/Dockerfile
             platforms: linux/amd64,linux/arm64
 
           -
@@ -103,12 +103,12 @@ jobs:
           -
             name: node-18-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./node/18/slim-bullseye/Dockerfile
+            file: ./node/18/bullseye-slim/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
             name: node-18-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./node/18/slim-buster/Dockerfile
+            file: ./node/18/buster-slim/Dockerfile
             platforms: linux/amd64,linux/arm64
 
           -
@@ -134,12 +134,12 @@ jobs:
           -
             name: node-19-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./node/19/slim-bullseye/Dockerfile
+            file: ./node/19/bullseye-slim/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
             name: node-19-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./node/19/slim-buster/Dockerfile
+            file: ./node/19/buster-slim/Dockerfile
             platforms: linux/amd64,linux/arm64
 
     steps:
