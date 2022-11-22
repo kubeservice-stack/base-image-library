@@ -21,125 +21,125 @@ jobs:
           -
             name: node-14-alpine3.15
             image: dongjiang1989/alpine
-            file: ./node/14/alpine3.15/Dockerfile
+            file: ./node/14/alpine3.15
             platforms: linux/amd64,linux/arm64
           -
             name: node-14-alpine3.16
             image: dongjiang1989/alpine
-            file: ./node/14/alpine3.16/Dockerfile
+            file: ./node/14/alpine3.16
             platforms: linux/amd64,linux/arm64
           -
             name: node-14-bullseye
             image: dongjiang1989/bullseye
-            file: ./node/14/bullseye/Dockerfile
+            file: ./node/14/bullseye
             platforms: linux/amd64,linux/arm64
           -
             name: node-14-buster
             image: dongjiang1989/buster
-            file: ./node/14/buster/Dockerfile
+            file: ./node/14/buster
             platforms: linux/amd64,linux/arm64
           -
             name: node-14-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./node/14/bullseye-slim/Dockerfile
+            file: ./node/14/bullseye-slim
             platforms: linux/amd64,linux/arm64
           -
             name: node-14-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./node/14/buster-slim/Dockerfile
+            file: ./node/14/buster-slim
             platforms: linux/amd64,linux/arm64
             
           -
             name: node-16-alpine3.15
             image: dongjiang1989/alpine
-            file: ./node/16/alpine3.15/Dockerfile
+            file: ./node/16/alpine3.15
             platforms: linux/amd64,linux/arm64
           -
             name: node-16-alpine3.16
             image: dongjiang1989/alpine
-            file: ./node/16/alpine3.16/Dockerfile
+            file: ./node/16/alpine3.16
             platforms: linux/amd64,linux/arm64
           -
             name: node-16-bullseye
             image: dongjiang1989/bullseye
-            file: ./node/16/bullseye/Dockerfile
+            file: ./node/16/bullseye
             platforms: linux/amd64,linux/arm64
           -
             name: node-16-buster
             image: dongjiang1989/buster
-            file: ./node/16/buster/Dockerfile
+            file: ./node/16/buster
             platforms: linux/amd64,linux/arm64
           -
             name: node-16-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./node/16/bullseye-slim/Dockerfile
+            file: ./node/16/bullseye-slim
             platforms: linux/amd64,linux/arm64
           -
             name: node-16-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./node/16/buster-slim/Dockerfile
+            file: ./node/16/buster-slim
             platforms: linux/amd64,linux/arm64
 
           -
             name: node-18-alpine3.15
             image: dongjiang1989/alpine
-            file: ./node/18/alpine3.15/Dockerfile
+            file: ./node/18/alpine3.15
             platforms: linux/amd64,linux/arm64
           -
             name: node-18-alpine3.16
             image: dongjiang1989/alpine
-            file: ./node/18/alpine3.16/Dockerfile
+            file: ./node/18/alpine3.16
             platforms: linux/amd64,linux/arm64
           -
             name: node-18-bullseye
             image: dongjiang1989/bullseye
-            file: ./node/18/bullseye/Dockerfile
+            file: ./node/18/bullseye
             platforms: linux/amd64,linux/arm64
           -
             name: node-18-buster
             image: dongjiang1989/buster
-            file: ./node/18/buster/Dockerfile
+            file: ./node/18/buster
             platforms: linux/amd64,linux/arm64
           -
             name: node-18-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./node/18/bullseye-slim/Dockerfile
+            file: ./node/18/bullseye-slim
             platforms: linux/amd64,linux/arm64
           -
             name: node-18-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./node/18/buster-slim/Dockerfile
+            file: ./node/18/buster-slim
             platforms: linux/amd64,linux/arm64
 
           -
             name: node-19-alpine3.15
             image: dongjiang1989/alpine
-            file: ./node/19/alpine3.15/Dockerfile
+            file: ./node/19/alpine3.15
             platforms: linux/amd64,linux/arm64
           -
             name: node-19-alpine3.16
             image: dongjiang1989/alpine
-            file: ./node/19/alpine3.16/Dockerfile
+            file: ./node/19/alpine3.16
             platforms: linux/amd64,linux/arm64
           -
             name: node-19-bullseye
             image: dongjiang1989/bullseye
-            file: ./node/19/bullseye/Dockerfile
+            file: ./node/19/bullseye
             platforms: linux/amd64,linux/arm64
           -
             name: node-19-buster
             image: dongjiang1989/buster
-            file: ./node/19/buster/Dockerfile
+            file: ./node/19/buster
             platforms: linux/amd64,linux/arm64
           -
             name: node-19-slim-bullseye
             image: dongjiang1989/bullseye-slim
-            file: ./node/19/bullseye-slim/Dockerfile
+            file: ./node/19/bullseye-slim
             platforms: linux/amd64,linux/arm64
           -
             name: node-19-slim-buster
             image: dongjiang1989/buster-slim
-            file: ./node/19/buster-slim/Dockerfile
+            file: ./node/19/buster-slim
             platforms: linux/amd64,linux/arm64
 
     steps:
@@ -162,7 +162,8 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          file: ${{ matrix.file }}
+          file: ${{ matrix.file }}/Dockerfile
+          context: ${{ matrix.file }}
           platforms: ${{ matrix.platforms }}
           push: true
           tags: ${{ matrix.image }}:${{ matrix.name }}
