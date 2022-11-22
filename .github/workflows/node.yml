@@ -112,7 +112,7 @@ jobs:
             platforms: linux/amd64,linux/arm64
 
           -
-            name:node-19-alpine3.15
+            name: node-19-alpine3.15
             image: dongjiang1989/alpine
             file: ./node/19/alpine3.15/Dockerfile
             platforms: linux/amd64,linux/arm64
