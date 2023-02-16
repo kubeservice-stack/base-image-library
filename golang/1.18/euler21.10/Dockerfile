@@ -6,7 +6,7 @@
 
 FROM dongjiang1989/bc-oe:21.10
 
-RUN yum install -y ca-certificates wget tar
+RUN yum install -y ca-certificates wget tar && yum clean all
 
 # set up nsswitch.conf for Go's "netgo" implementation
 # - https://github.com/golang/go/blob/go1.9.1/src/net/conf.go#L194-L275

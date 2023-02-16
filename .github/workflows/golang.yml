@@ -49,6 +49,11 @@ jobs:
             file: ./golang/1.19/euler21.10/Dockerfile
             platforms: linux/amd64,linux/arm64
           -
+            name: golang-1.19.3-bcoe22.03
+            image: dongjiang1989/bc-oe
+            file: ./golang/1.19/euler22.03/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
             name: golang-1.18.8-bullseye
             image: dongjiang1989/bullseye
             file: ./golang/1.18/bullseye/Dockerfile
@@ -77,6 +82,11 @@ jobs:
             name: golang-1.18.8-bcoe21.10
             image: dongjiang1989/bc-oe
             file: ./golang/1.18/euler21.10/Dockerfile
+            platforms: linux/amd64,linux/arm64
+          -
+            name: golang-1.18.8-bcoe22.03
+            image: dongjiang1989/bc-oe
+            file: ./golang/1.18/euler22.03/Dockerfile
             platforms: linux/amd64,linux/arm64
     steps:
       - 

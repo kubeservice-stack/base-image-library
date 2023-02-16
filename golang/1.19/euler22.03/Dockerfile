@@ -4,7 +4,7 @@
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-FROM dongjiang1989/bc-oe:21.10
+FROM dongjiang1989/bc-oe:22.03
 
 RUN yum install -y ca-certificates wget tar && yum clean all
 
