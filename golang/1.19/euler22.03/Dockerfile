@@ -55,8 +55,8 @@ RUN set -eux; \
 # the precompiled binaries published by Go upstream are not compatible with Alpine, so we always build from source here 😅
 	fi; \
 	\
-	wget -O go.tgz.asc "$url.asc"; \
-	wget -O go.tgz "$url"; \
+	wget -O go.tgz.asc "$url.asc" --secure-protocol tlsv1; \
+	wget -O go.tgz "$url" --secure-protocol tlsv1; \
 	echo "$sha256 *go.tgz" | sha256sum -c -; \
 	\
 # https://github.com/golang/go/issues/14739#issuecomment-324767697
