@@ -103,6 +103,7 @@ RUN set -eux; \
 		; \
 	fi; \
 	\
+	yum clean all; \
 	go version
 
 ENV GOPATH /go
